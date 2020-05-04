@@ -7,3 +7,9 @@ class Object(models.Model):
 
     class Meta:
         abstract = True
+
+class Person(Object):
+    birthdate = models.DateField()
+
+class Farm(Object):
+    name = models.CharField(max_length=4096)
