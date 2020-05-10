@@ -34,3 +34,4 @@ class MultiPolygon(models.Model):
 class Farm(Object):
     name = models.CharField(max_length=4096)
     location = models.EmbeddedField(model_container=MultiPolygon)
+    owners = models.ArrayReferenceField(to=Person, on_delete=models.CASCADE)
