@@ -31,8 +31,17 @@ class MultiPolygon(models.Model):
     class Meta:
         abstract = True
 
-class Farm(Object):
+class Organization(models.Model):
     name = models.CharField(max_length=4096)
+    type = models.CharField(max_length=4096)
+    additional_info = models.TextField()
+
+class Company(Organization):
+    owners = models.ArrayReferenceField(to=Person, on_delete=models.CASCADE, related_name='companies_owned')
+    employees = models.ArrayReferenceField(to=Person, on_delete=models.CASCADE, related_name='companies_employed_by')
+
+class Faciliity(models.Model):
     location = models.EmbeddedField(model_container=MultiPolygon)
-    owners = models.ArrayReferenceField(to=Person, on_delete=models.CASCADE, related_name='farms_owned')
-    employees = models.ArrayReferenceField(to=Person, on_delete=models.CASCADE, related_name='farms_employed_by')
+    type = models.CharField(max_length=4096)
+    description = models.TextField()
+
